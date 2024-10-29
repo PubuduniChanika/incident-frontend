@@ -15,22 +15,27 @@ class IncidentService {
     }
 
     // Method to fetch incidents 
-    async getIncidents(token) {
+    async getIncidents(token, page = 0, size = 10) {
+        if (!token) {
+            throw new Error("Token is required to fetch incidents.");
+        }
         try {
-            const response = await axios.get(`${IncidentService.BASE_URL}/admin/get-incidents`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+            const response = await axios.get(`${IncidentService.BASE_URL}/admin/get-incidents`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    page: page,
+                    size: size
                 }
-            );
+            });
             return response.data;
         } catch (error) {
-            console.error("Error fetching incidents:", error);
-            throw new Error("Error loading");
-
+            console.error("Error fetching incidents:", error.response ? error.response.data : error.message);
+            throw new Error("Failed to load incidents. Please try again.");
         }
     }
+    
 
     // // Additional methods for updating and deleting incidents can still require security or not based on your requirements
     // async updateIncident(incidentId, incidentData) {

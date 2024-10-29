@@ -7,13 +7,18 @@ function ViewIncidentsPage() {
     const [incidents, setIncidents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [page, setPage] = useState(0);
+    const [size] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         const fetchIncidents = async () => {
             try {
-                const token = localStorage.getItem('token'); 
-                const response = await IncidentService.getIncidents(token);
-                setIncidents(response);
+                const token = localStorage.getItem('token');
+                const response = await IncidentService.getIncidents(token, page, size);
+                
+                setIncidents(response.content);
+                setTotalPages(response.totalPages);
             } catch (err) {
                 setError('Failed to fetch incidents');
                 console.error(err);
@@ -23,7 +28,7 @@ function ViewIncidentsPage() {
         };
 
         fetchIncidents();
-    }, []);
+    }, [page, size]);
 
     const columnHelper = createColumnHelper();
 
@@ -43,40 +48,48 @@ function ViewIncidentsPage() {
         getCoreRowModel: getCoreRowModel(),
     });
 
+    const handlePreviousPage = () => {
+        if (page > 0) setPage(page - 1);
+    };
+
+    const handleNextPage = () => {
+        if (page < totalPages - 1) setPage(page + 1);
+    };
+
     if (loading) {
-        return <div>Loading incidents...</div>;
+        return <div className="flex items-center justify-center min-h-screen">Loading incidents...</div>;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <div className="text-red-600 text-center mt-4">{error}</div>;
     }
 
     return (
         <div className="container mx-auto p-6">
-            <h2 className="text-2xl font-bold mb-4">Incident Reports</h2>
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-6">Incident Reports</h2>
+            <div className="overflow-x-auto rounded-lg shadow-md">
+                <table className="min-w-full bg-white rounded-lg border border-gray-200">
                     <thead>
                         {table.getHeaderGroups().map(headerGroup => (
-                            <tr key={headerGroup.id} className="bg-gray-200 text-gray-700">
+                            <tr key={headerGroup.id} className="bg-gray-100 text-gray-600">
                                 {headerGroup.headers.map(header => (
-                                    <th key={header.id} className="py-3 px-6 font-semibold text-left">
+                                    <th key={header.id} className="py-4 px-6 text-left text-sm font-medium uppercase tracking-wider">
                                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                     </th>
                                 ))}
                             </tr>
                         ))}
                     </thead>
-                    <tbody>
+                    <tbody className="text-gray-700">
                         {incidents.length === 0 ? (
                             <tr>
-                                <td colSpan={columns.length} className="text-center py-4">No incidents found.</td>
+                                <td colSpan={columns.length} className="text-center py-8 text-gray-500">No incidents found.</td>
                             </tr>
                         ) : (
                             table.getRowModel().rows.map(row => (
-                                <tr key={row.id} className="border-b hover:bg-gray-50">
+                                <tr key={row.id} className="border-b last:border-none hover:bg-gray-50">
                                     {row.getVisibleCells().map(cell => (
-                                        <td key={cell.id} className="py-3 px-6">
+                                        <td key={cell.id} className="py-4 px-6 text-sm">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
                                     ))}
@@ -86,7 +99,29 @@ function ViewIncidentsPage() {
                     </tbody>
                 </table>
             </div>
-            <Link to="/incidents/add" className="btn btn-primary">Add Incident</Link>
+
+            {/* Pagination Controls */}
+            <div className="flex items-center justify-between mt-6">
+                <button
+                    onClick={handlePreviousPage}
+                    disabled={page === 0}
+                    className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-md hover:bg-gray-300 disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                <span className="text-gray-600 font-medium">Page {page + 1} of {totalPages}</span>
+                <button
+                    onClick={handleNextPage}
+                    disabled={page === totalPages - 1}
+                    className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-md hover:bg-gray-300 disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
+
+            <Link to="/incidents/add" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white font-medium rounded-md shadow-md hover:bg-blue-700 focus:outline-none">
+                Add Incident
+            </Link>
         </div>
     );
 }
