@@ -20,6 +20,7 @@ function UserManagementPage() {
     }),
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('email', { header: 'Email' }),
+    columnHelper.accessor('role', { header: 'Role' }),
     columnHelper.display({
       id: 'action',
       header: 'Action',

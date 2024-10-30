@@ -116,7 +116,7 @@ class UserService{
 
     static isAdmin(){
         const role = localStorage.getItem('role');
-        return role == 'ADMIN'
+        return role == 'ISO'
     }
 
     static isUser(){

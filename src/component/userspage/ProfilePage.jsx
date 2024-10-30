@@ -37,7 +37,7 @@ function ProfilePage() {
                     </p>
                 </div>
 
-                {profileInfo.role === "ADMIN" && (
+                {profileInfo.role === "ISO" && (
                     <div className="mt-8 text-center">
                         <Link 
                             to={`/update-user/${profileInfo.id}`} 
