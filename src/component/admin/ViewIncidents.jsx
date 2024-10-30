@@ -34,7 +34,10 @@ function ViewIncidentsPage() {
 
     const columns = useMemo(() => [
         columnHelper.accessor('callerName', { header: 'Name of Caller' }),
-        columnHelper.accessor('callTime', { header: 'Time of Call', cell: info => new Date(info.getValue()).toLocaleString() }),
+        columnHelper.accessor('callTime', {
+            header: 'Date of Call',
+            cell: info => new Date(info.getValue()).toLocaleDateString(),
+          }),       
         columnHelper.accessor('callerContactInfo', { header: 'Contact Info' }),
         columnHelper.accessor('incidentNature', { header: 'Nature of Incident' }),
         columnHelper.accessor('equipmentOrPersonsInvolved', { header: 'Equipment Involved' }),
