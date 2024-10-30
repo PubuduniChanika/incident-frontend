@@ -15,7 +15,8 @@ function LoginPage() {
       if (userData.token) {
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
-        navigate("/profile");
+        navigate("/admin/get-incidents");
+        window.location.reload();
       } else {
         setError(userData.message);
       }
