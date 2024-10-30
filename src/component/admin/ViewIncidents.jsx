@@ -140,9 +140,9 @@ function ViewIncidentsPage() {
                 </button>
             </div>
 
-            <Link to="/incidents/add" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white font-medium rounded-md shadow-md hover:bg-blue-700 focus:outline-none">
+            {/* <Link to="/incidents/add" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white font-medium rounded-md shadow-md hover:bg-blue-700 focus:outline-none">
                 Add Incident
-            </Link>
+            </Link> */}
         </div>
     );
 }

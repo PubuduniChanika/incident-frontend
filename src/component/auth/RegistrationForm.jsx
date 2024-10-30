@@ -83,7 +83,7 @@ function RegistrationPage() {
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
             />
           </div>
-          <div className="mb-4 hidden">
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Role:
             </label>

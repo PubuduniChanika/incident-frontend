@@ -1,4 +1,3 @@
-// components/UserManagementPage.js
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import UserService from '../service/UserService';
@@ -34,7 +33,6 @@ function UserManagementPage() {
               <EditIcon /> {/* Material-UI edit icon */}
             </IconButton>
           </Link>
-          
           <IconButton 
             color="error" 
             onClick={() => deleteUser(row.original.id)}
@@ -42,8 +40,6 @@ function UserManagementPage() {
           >
             <DeleteIcon /> {/* Material-UI delete icon */}
           </IconButton>
-
-          
         </div>
       ),
     }),
@@ -92,8 +88,8 @@ function UserManagementPage() {
           </button>
         </Link>
       </div>
-      <div className="overflow-x-auto rounded-lg shadow-lg mt-4 w-1/2 mx-auto bg-white p-4"> {/* Added background and padding */}
-        <table className="min-w-full bg-white border border-gray-200 rounded-lg"> {/* Added rounded corners */}
+      <div className="overflow-x-auto rounded-lg shadow-lg mt-4 bg-white p-4"> {/* Removed fixed width for responsiveness */}
+        <table className="min-w-full bg-white border border-gray-200 rounded-lg">
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id} className="bg-gray-100 text-gray-600">
