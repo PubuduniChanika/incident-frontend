@@ -10,7 +10,7 @@ function UpdateUser() {
     name: '',
     email: '',
     role: '',
-    city: ''
+    designation: ''
   });
 
   useEffect(() => {
@@ -21,8 +21,8 @@ function UpdateUser() {
     try {
       const token = localStorage.getItem('token');
       const response = await UserService.getUserById(userId, token);
-      const { name, email, role, city } = response.systemUsers;
-      setUserData({ name, email, role, city });
+      const { name, email, role, designation } = response.systemUsers;
+      setUserData({ name, email, role, designation });
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -88,11 +88,11 @@ function UpdateUser() {
             />
           </div>
           <div className="flex flex-col">
-            <label className="mb-1 text-gray-600">City:</label>
+            <label className="mb-1 text-gray-600">Designation:</label>
             <input
               type="text"
-              name="city"
-              value={userData.city}
+              name="designation"
+              value={userData.designation}
               onChange={handleInputChange}
               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
