@@ -10,12 +10,13 @@ function ViewIncidentsPage() {
     const [page, setPage] = useState(0);
     const [size] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
+    const [searchTerm, setSearchTerm] = useState(''); // State for search term
 
     useEffect(() => {
         const fetchIncidents = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await IncidentService.getIncidents(token, page, size);
+                const response = await IncidentService.getIncidents(token, page, size, searchTerm); // Pass search term
                 
                 setIncidents(response.content);
                 setTotalPages(response.totalPages);
@@ -28,7 +29,7 @@ function ViewIncidentsPage() {
         };
 
         fetchIncidents();
-    }, [page, size]);
+    }, [page, size, searchTerm]); // Add searchTerm to dependencies
 
     const columnHelper = createColumnHelper();
 
@@ -37,7 +38,7 @@ function ViewIncidentsPage() {
         columnHelper.accessor('callTime', {
             header: 'Date of Call',
             cell: info => new Date(info.getValue()).toLocaleDateString(),
-          }),       
+        }),       
         columnHelper.accessor('callerContactInfo', { header: 'Contact Info' }),
         columnHelper.accessor('incidentNature', { header: 'Nature of Incident' }),
         columnHelper.accessor('equipmentOrPersonsInvolved', { header: 'Equipment Involved' }),
@@ -59,6 +60,11 @@ function ViewIncidentsPage() {
         if (page < totalPages - 1) setPage(page + 1);
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value); // Update search term
+        setPage(0); // Reset to the first page on search
+    };
+
     if (loading) {
         return <div className="flex items-center justify-center min-h-screen">Loading incidents...</div>;
     }
@@ -70,13 +76,25 @@ function ViewIncidentsPage() {
     return (
         <div className="container mx-auto p-6">
             <h2 className="text-3xl font-semibold text-gray-800 mb-6">Incident Reports</h2>
+
+            {/* Search Input */}
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Search incidents..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="border border-gray-300 rounded-md p-2 w-full sm:w-1/4" // Adjust width for small screens
+                />
+            </div>
+
             <div className="overflow-x-auto rounded-lg shadow-md">
                 <table className="min-w-full bg-white rounded-lg border border-gray-200">
                     <thead>
                         {table.getHeaderGroups().map(headerGroup => (
                             <tr key={headerGroup.id} className="bg-gray-100 text-gray-600">
                                 {headerGroup.headers.map(header => (
-                                    <th key={header.id} className="py-4 px-6 text-left text-sm font-medium uppercase tracking-wider">
+                                    <th key={header.id} className="py-4 px-2 sm:px-6 text-left text-sm font-medium uppercase tracking-wider">
                                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                     </th>
                                 ))}
@@ -92,7 +110,7 @@ function ViewIncidentsPage() {
                             table.getRowModel().rows.map(row => (
                                 <tr key={row.id} className="border-b last:border-none hover:bg-gray-50">
                                     {row.getVisibleCells().map(cell => (
-                                        <td key={cell.id} className="py-4 px-6 text-sm">
+                                        <td key={cell.id} className="py-4 px-2 sm:px-6 text-sm">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
                                     ))}

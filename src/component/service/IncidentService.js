@@ -15,7 +15,7 @@ class IncidentService {
     }
 
     // Method to fetch incidents 
-    async getIncidents(token, page = 0, size = 10) {
+    async getIncidents(token, page = 0, size = 10, searchTerm = '') {
         if (!token) {
             throw new Error("Token is required to fetch incidents.");
         }
@@ -26,7 +26,8 @@ class IncidentService {
                 },
                 params: {
                     page: page,
-                    size: size
+                    size: size,
+                    searchTerm: searchTerm  // Include the search term here
                 }
             });
             return response.data;
@@ -35,6 +36,7 @@ class IncidentService {
             throw new Error("Failed to load incidents. Please try again.");
         }
     }
+    
     
 
     // // Additional methods for updating and deleting incidents can still require security or not based on your requirements
