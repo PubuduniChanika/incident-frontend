@@ -21,6 +21,7 @@ function UserManagementPage() {
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('email', { header: 'Email' }),
     columnHelper.accessor('role', { header: 'Role' }),
+    columnHelper.accessor('designation', { header: 'Designation' }),
     columnHelper.display({
       id: 'action',
       header: 'Action',

@@ -10,7 +10,7 @@ function RegistrationPage() {
     email: "",
     password: "",
     role: "ADMIN",
-    city: "",
+    designation: "",
   });
 
   const handleInputChange = (e) => {
@@ -29,7 +29,7 @@ function RegistrationPage() {
         email: "",
         password: "",
         role: "",
-        city: "",
+        designation: "",
       });
       alert("User registered successfully");
       navigate("/admin/user-management");
@@ -99,14 +99,14 @@ function RegistrationPage() {
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
-              City:
+              Designation:
             </label>
             <input
               type="text"
-              name="city"
-              value={formData.city}
+              name="designation"
+              value={formData.designation}
               onChange={handleInputChange}
-              placeholder="Enter your city"
+              placeholder="Enter designation"
               required
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
             />
