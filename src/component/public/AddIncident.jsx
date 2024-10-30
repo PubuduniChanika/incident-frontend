@@ -5,14 +5,15 @@ import { useNavigate } from "react-router-dom";
 function AddIncidentPage() {
   const navigate = useNavigate();
 
-  const getCurrentDateTime = () => {
+  const getCurrentDate = () => {
     const now = new Date();
-    return now.toISOString().slice(0, 16); // Formats as "YYYY-MM-DDTHH:MM"
+    return now.toISOString().slice(0, 10); // Formats as "YYYY-MM-DD"
   };
+  
 
   const [formData, setFormData] = useState({
     callerName: "",
-    callTime: getCurrentDateTime(),
+    callTime: getCurrentDate(),
     callerContactInfo: "",
     incidentNature: "",
     equipmentOrPersonsInvolved: "",
@@ -34,7 +35,7 @@ function AddIncidentPage() {
 
       setFormData({
         callerName: "",
-        callTime: getCurrentDateTime(),
+        callTime: getCurrentDate(),
         callerContactInfo: "",
         incidentNature: "",
         equipmentOrPersonsInvolved: "",
@@ -79,7 +80,7 @@ function AddIncidentPage() {
               Time of the call:
             </label>
             <input
-              type="datetime-local"
+              type="date"
               name="callTime"
               value={formData.callTime}
               onChange={handleInputChange}
