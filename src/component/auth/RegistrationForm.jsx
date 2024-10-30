@@ -84,21 +84,23 @@ function RegistrationPage() {
             />
           </div>
           <div className="mb-4">
-  <label className="block text-sm font-medium text-gray-700">
-    Role:
-  </label>
-  <select
-    name="role"
-    value={formData.role}
-    onChange={handleInputChange}
-    required
-    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-  >
-    <option value="" disabled>Select your role</option>
-    <option value="ISO">ISO</option>
-    <option value="TEAM">TEAM</option>
-  </select>
-</div>
+            <label className="block text-sm font-medium text-gray-700">
+              Role:
+            </label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleInputChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+            >
+              <option value="" disabled>
+                Select your role
+              </option>
+              <option value="ISO">ISO</option>
+              <option value="TEAM">TEAM</option>
+            </select>
+          </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">

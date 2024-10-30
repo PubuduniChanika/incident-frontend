@@ -33,7 +33,7 @@ function ProfilePage() {
                         <span className="font-medium">Email:</span> {profileInfo.email}
                     </p>
                     <p className="text-gray-700">
-                        <span className="font-medium">City:</span> {profileInfo.city}
+                        <span className="font-medium">Designation:</span> {profileInfo.designation}
                     </p>
                 </div>
 
