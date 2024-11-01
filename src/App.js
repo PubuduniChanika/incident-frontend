@@ -9,6 +9,7 @@ import ProfilePage from "./component/userspage/ProfilePage";
 import ViewIncidentsPage from "./component/admin/ViewIncidents";
 import UserService from './component/service/UserService';
 import UserManagementPage from "./component/userspage/UserManagement";
+import UpdateIncidentPage from "./component/admin/UpdateIncidents"
 import UpdateUser from "./component/userspage/UpdateUser";
 import FooterComponent from "./component/common/Footer";
 import './styles.css';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/public/add-incident" element={<IncidentPage />} />
             <Route path="/admin/get-incidents" element={<ViewIncidentsPage />} />
+            
 
             {/* Check if user is authenticated and admin before rendering admin-only routes */}
             {UserService.adminOnly() ? (
@@ -32,6 +34,7 @@ function App() {
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/admin/user-management" element={<UserManagementPage />} />
                 <Route path="/update-user/:userId" element={<UpdateUser />} />
+                <Route path="/update-incident/:incidentId" element={<UpdateIncidentPage />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/login" />} />

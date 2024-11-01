@@ -51,7 +51,7 @@ function ViewIncidentsPage() {
             header: 'Action',
             cell: ({ row }) => (
               <div className="flex space-x-2">
-                <Link to={`/update-user/${row.original.id}`}>
+                <Link to={`/update-incident/${row.original.id}`}>
                   <IconButton 
                     color="primary" 
                     aria-label="update" // Accessibility label

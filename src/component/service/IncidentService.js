@@ -39,20 +39,69 @@ class IncidentService {
     
     
 
-    // // Additional methods for updating and deleting incidents can still require security or not based on your requirements
-    // async updateIncident(incidentId, incidentData) {
+    // Additional methods for updating and deleting incidents can still require security or not based on your requirements
+    async updateIncident(incidentId, incidentData) {
+        try {
+            const response = await axios.put(`${IncidentService.BASE_URL}/${incidentId}`, incidentData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating incident:', error);
+            throw error;
+        }
+    }
+
+    // async getIncidentById(token, incidentId) {
+    //     // Check if the token is provided
+    //     if (!token) {
+    //         throw new Error("Token is required to fetch incidents.");
+    //     }
+    //     // Check if the incidentId is provided
+    //     if (!incidentId) {
+    //         throw new Error("Incident ID is required to fetch the incident.");
+    //     }
+        
     //     try {
-    //         const response = await axios.put(`${API_URL}/${incidentId}`, incidentData, {
+    //         // Make the GET request to fetch the incident by ID
+    //         const response = await axios.get(`${IncidentService.BASE_URL}/admin/get-incident/${incidentId}`, {
     //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             }
+    //                 'Authorization': `Bearer ${token}` // Set the authorization header with the token
+    //             },
     //         });
-    //         return response.data;
+            
+    //         return response.data; // Return the incident data
     //     } catch (error) {
-    //         console.error('Error updating incident:', error);
-    //         throw error;
+    //         // Log and throw a custom error if the request fails
+    //         console.error("Error fetching incidents:", error.response ? error.response.data : error.message);
+    //         throw new Error("Failed to load incident. Please try again.");
     //     }
     // }
+
+    async getIncidentById(incidentId) {
+        // Check if the token is provided
+        // if (!token) {
+        //     throw new Error("Token is required to fetch incidents.");
+        // }
+        // Check if the incidentId is provided
+        if (!incidentId) {
+            throw new Error("Incident ID is required to fetch the incident.");
+        }
+        
+        try {
+            // Make the GET request to fetch the incident by ID
+            const response = await axios.get(`${IncidentService.BASE_URL}/public/get-incident/${incidentId}`);
+            
+            return response.data; // Return the incident data
+        } catch (error) {
+            // Log and throw a custom error if the request fails
+            console.error("Error fetching incidents:", error.response ? error.response.data : error.message);
+            throw new Error("Failed to load incident. Please try again.");
+        }
+    }
+    
 
     // async deleteIncident(incidentId) {
     //     try {
