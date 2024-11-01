@@ -9,7 +9,7 @@ function RegistrationPage() {
     name: "",
     email: "",
     password: "",
-    role: "ADMIN",
+    role: "",
     designation: "",
   });
 
@@ -95,7 +95,7 @@ function RegistrationPage() {
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
             >
               <option value="" disabled>
-                Select your role
+                Select role
               </option>
               <option value="ISO">ISO</option>
               <option value="TEAM">TEAM</option>
@@ -103,7 +103,7 @@ function RegistrationPage() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2">
               Designation:
             </label>
             <input
@@ -111,8 +111,8 @@ function RegistrationPage() {
               name="designation"
               value={formData.designation}
               onChange={handleInputChange}
-              placeholder="Enter designation"
-              required
+              // placeholder="Enter designation"
+              // required
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
             />
           </div>

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import IncidentService from '../service/IncidentService';
 import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 function ViewIncidentsPage() {
     const [incidents, setIncidents] = useState([]);
@@ -44,6 +46,23 @@ function ViewIncidentsPage() {
         columnHelper.accessor('equipmentOrPersonsInvolved', { header: 'Equipment Involved' }),
         columnHelper.accessor('locationOfInvolved', { header: 'Location' }),
         columnHelper.accessor('incidentDetection', { header: 'Detection Method' }),
+        columnHelper.display({
+            id: 'action',
+            header: 'Action',
+            cell: ({ row }) => (
+              <div className="flex space-x-2">
+                <Link to={`/update-user/${row.original.id}`}>
+                  <IconButton 
+                    color="primary" 
+                    aria-label="update" // Accessibility label
+                  >
+                    <AssignmentIndIcon /> {/* Material-UI edit icon */}
+                  </IconButton>
+                </Link>
+                
+              </div>
+            ),
+          }),
     ], []);
 
     const table = useReactTable({
