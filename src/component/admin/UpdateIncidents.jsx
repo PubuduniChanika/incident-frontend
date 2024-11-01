@@ -23,7 +23,7 @@ function UpdateIncidentPage() {
     const fetchIncidentData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await IncidentService.getIncidentById(incidentId, token);
+        const response = await IncidentService.getIncidentById(token, incidentId);
         setFormData(response);
       } catch (error) {
         console.error("Error fetching incident data:", error);
@@ -47,7 +47,7 @@ function UpdateIncidentPage() {
       await IncidentService.updateIncident(incidentId, formData, token); // Update incident
 
       alert("Incident updated successfully");
-      navigate("/admin/user-management"); // Redirect after successful update
+      navigate("/admin/get-incidents"); // Redirect after successful update
     } catch (error) {
       console.error("Error updating incident:", error);
       alert("An error occurred while updating the incident");
