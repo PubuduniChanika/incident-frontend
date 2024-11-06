@@ -14,8 +14,10 @@ function UpdateIncidentPage() {
     equipmentOrPersonsInvolved: "",
     locationOfInvolved: "",
     incidentDetection: "",
+    selectedSystemUsers: []
   });
 
+  const [systemUsers, setSystemUsers] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -23,8 +25,17 @@ function UpdateIncidentPage() {
     const fetchIncidentData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await IncidentService.getIncidentById(token, incidentId);
-        setFormData(response);
+        const data = await IncidentService.getIncidentById(token, incidentId);
+        setFormData({
+          callerName: data.callerName,
+          callTime: data.callTime,
+          callerContactInfo: data.callerContactInfo,
+          incidentNature: data.incidentNature,
+          equipmentOrPersonsInvolved: data.equipmentOrPersonsInvolved,
+          locationOfInvolved: data.locationOfInvolved,
+          incidentDetection: data.incidentDetection,
+          systemUsers: data.systemUsers || [] // optional field for users
+        });
       } catch (error) {
         console.error("Error fetching incident data:", error);
         alert("An error occurred while fetching the incident data");
@@ -33,6 +44,8 @@ function UpdateIncidentPage() {
 
     fetchIncidentData();
   }, [incidentId]);
+
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -154,6 +167,24 @@ function UpdateIncidentPage() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          {/* System Users Section */}
+        <div className="form-group">
+          <label className="block text-gray-700 font-medium mb-2">System Users Involved:</label>
+          <div className="space-y-4">
+            {formData.systemUsers?.map((user, index) => (
+              <div key={user.id} className="flex items-center space-x-4">
+                <input
+                  type="text"
+                  value={user.name}
+                  readOnly
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none"
+                />
+                {/* <span className="text-gray-600">ID: {user.id}</span> */}
+              </div>
+            ))}
+          </div>
+        </div>
+          
           <button
             type="submit"
             className="w-full py-2 bg-red-900 text-white font-semibold rounded-md hover:bg-amber-700 transition duration-200"
