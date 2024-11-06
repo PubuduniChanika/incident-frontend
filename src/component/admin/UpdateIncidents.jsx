@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import IncidentService from "../service/IncidentService";
+import UserService from "../service/UserService";
 import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateIncidentPage() {
@@ -14,10 +15,10 @@ function UpdateIncidentPage() {
     equipmentOrPersonsInvolved: "",
     locationOfInvolved: "",
     incidentDetection: "",
-    selectedSystemUsers: []
+    systemUsers: [],
   });
 
-  const [systemUsers, setSystemUsers] = useState([]);
+  const [usersList, setUsersList] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function UpdateIncidentPage() {
           equipmentOrPersonsInvolved: data.equipmentOrPersonsInvolved,
           locationOfInvolved: data.locationOfInvolved,
           incidentDetection: data.incidentDetection,
-          systemUsers: data.systemUsers || [] // optional field for users
+          systemUsers: data.systemUsers?.map(user => user.id) || [],
         });
       } catch (error) {
         console.error("Error fetching incident data:", error);
@@ -45,11 +46,29 @@ function UpdateIncidentPage() {
     fetchIncidentData();
   }, [incidentId]);
 
-  
+  useEffect(() => {
+    const fetchUsersList = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await UserService.getAllUsers(token);
+        setUsersList(response.systemUsersList); // Populate the users list
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsersList();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSystemUsersChange = (index, e) => {
+    const updatedSystemUsers = [...formData.systemUsers];
+    updatedSystemUsers[index] = e.target.value;
+    setFormData({ ...formData, systemUsers: updatedSystemUsers });
   };
 
   const handleSubmit = async (e) => {
@@ -168,23 +187,29 @@ function UpdateIncidentPage() {
             />
           </div>
           {/* System Users Section */}
-        <div className="form-group">
-          <label className="block text-gray-700 font-medium mb-2">System Users Involved:</label>
-          <div className="space-y-4">
-            {formData.systemUsers?.map((user, index) => (
-              <div key={user.id} className="flex items-center space-x-4">
-                <input
-                  type="text"
-                  value={user.name}
-                  readOnly
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none"
-                />
-                {/* <span className="text-gray-600">ID: {user.id}</span> */}
-              </div>
-            ))}
+          <div className="form-group">
+            <label className="block text-gray-700 font-medium mb-2">
+              System Users Involved:
+            </label>
+            <div className="space-y-4">
+              {formData.systemUsers.map((user, index) => (
+                <div key={index} className="flex items-center space-x-4">
+                  <select
+                    value={user}
+                    onChange={(e) => handleSystemUsersChange(index, e)}
+                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {usersList.map((usersListItem) => (
+                      <option key={usersListItem.id} value={usersListItem.id}>
+                        {usersListItem.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-          
+
           <button
             type="submit"
             className="w-full py-2 bg-red-900 text-white font-semibold rounded-md hover:bg-amber-700 transition duration-200"
