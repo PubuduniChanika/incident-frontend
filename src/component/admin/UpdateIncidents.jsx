@@ -15,7 +15,7 @@ function UpdateIncidentPage() {
     equipmentOrPersonsInvolved: "",
     locationOfInvolved: "",
     incidentDetection: "",
-    systemUsers: [],
+    systemUsers: [], // Initialize with an empty array for system users
   });
 
   const [usersList, setUsersList] = useState([]);
@@ -35,7 +35,7 @@ function UpdateIncidentPage() {
           equipmentOrPersonsInvolved: data.equipmentOrPersonsInvolved,
           locationOfInvolved: data.locationOfInvolved,
           incidentDetection: data.incidentDetection,
-          systemUsers: data.systemUsers?.map(user => user.id) || [],
+          systemUsers: data.systemUsers?.map(user => ({ id: user.id })) || [],
         });
       } catch (error) {
         console.error("Error fetching incident data:", error);
@@ -67,7 +67,16 @@ function UpdateIncidentPage() {
 
   const handleSystemUsersChange = (index, e) => {
     const updatedSystemUsers = [...formData.systemUsers];
-    updatedSystemUsers[index] = e.target.value;
+    updatedSystemUsers[index] = { id: e.target.value }; // Set the id as an object
+    setFormData({ ...formData, systemUsers: updatedSystemUsers });
+  };
+
+  const addSystemUser = () => {
+    setFormData({ ...formData, systemUsers: [...formData.systemUsers, { id: "" }] });
+  };
+
+  const removeSystemUser = (index) => {
+    const updatedSystemUsers = formData.systemUsers.filter((_, i) => i !== index);
     setFormData({ ...formData, systemUsers: updatedSystemUsers });
   };
 
@@ -95,98 +104,91 @@ function UpdateIncidentPage() {
           Update Incident Report
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Caller Name */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              Name of the caller:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Caller Name</label>
             <input
               type="text"
               name="callerName"
               value={formData.callerName}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Call Time */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              Time of the call:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Call Time</label>
             <input
               type="date"
               name="callTime"
               value={formData.callTime}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Caller Contact Info */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              Contact information of the caller:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Caller Contact Info</label>
             <input
               type="text"
               name="callerContactInfo"
               value={formData.callerContactInfo}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Incident Nature */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              The nature of the incident:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Incident Nature</label>
             <input
               type="text"
               name="incidentNature"
               value={formData.incidentNature}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Equipment or Persons Involved */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              What equipment or person(s) were involved:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Equipment or Persons Involved</label>
             <input
               type="text"
               name="equipmentOrPersonsInvolved"
               value={formData.equipmentOrPersonsInvolved}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Location of Involved */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              Location of the equipment or person(s) involved:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Location of Involved</label>
             <input
               type="text"
               name="locationOfInvolved"
               value={formData.locationOfInvolved}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Incident Detection */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">
-              How the incident was detected:
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Incident Detection</label>
             <input
               type="text"
               name="incidentDetection"
               value={formData.incidentDetection}
               onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          {/* System Users Section */}
+
+          {/* System Users Involved */}
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
               System Users Involved:
@@ -195,25 +197,41 @@ function UpdateIncidentPage() {
               {formData.systemUsers.map((user, index) => (
                 <div key={index} className="flex items-center space-x-4">
                   <select
-                    value={user}
+                    value={user.id} // Use the id value
                     onChange={(e) => handleSystemUsersChange(index, e)}
                     className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
+                    <option value="">Select User</option>
                     {usersList.map((usersListItem) => (
                       <option key={usersListItem.id} value={usersListItem.id}>
                         {usersListItem.name}
                       </option>
                     ))}
                   </select>
+                  <button
+                    type="button"
+                    onClick={() => removeSystemUser(index)}
+                    className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
                 </div>
               ))}
+              <button
+                type="button"
+                onClick={addSystemUser}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+              >
+                Add User
+              </button>
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-2 bg-red-900 text-white font-semibold rounded-md hover:bg-amber-700 transition duration-200"
-            disabled={submitting} // Disable button when submitting
+            className="w-full py-2 bg-red-900 text-white font-semibold rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+            disabled={submitting}
           >
             {submitting ? "Updating..." : "Update Incident"}
           </button>
