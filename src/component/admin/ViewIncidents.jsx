@@ -46,6 +46,10 @@ function ViewIncidentsPage() {
         columnHelper.accessor('equipmentOrPersonsInvolved', { header: 'Equipment Involved' }),
         columnHelper.accessor('locationOfInvolved', { header: 'Location' }),
         columnHelper.accessor('incidentDetection', { header: 'Detection Method' }),
+        columnHelper.accessor('systemUsers', {
+            header: 'Assignees',
+            cell: ({ row }) => row.original.systemUsers.map(user => user.name).join(', '), // Display each user's name
+        }),
         columnHelper.display({
             id: 'action',
             header: 'Action',
