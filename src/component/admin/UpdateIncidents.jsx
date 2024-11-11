@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import IncidentService from "../service/IncidentService";
 import UserService from "../service/UserService";
 import { useNavigate, useParams } from "react-router-dom";
-
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 function UpdateIncidentPage() {
   const navigate = useNavigate();
   const { incidentId } = useParams(); // Get incidentId from URL parameters
@@ -35,7 +36,7 @@ function UpdateIncidentPage() {
           equipmentOrPersonsInvolved: data.equipmentOrPersonsInvolved,
           locationOfInvolved: data.locationOfInvolved,
           incidentDetection: data.incidentDetection,
-          systemUsers: data.systemUsers?.map(user => ({ id: user.id })) || [],
+          systemUsers: data.systemUsers?.map((user) => ({ id: user.id })) || [],
         });
       } catch (error) {
         console.error("Error fetching incident data:", error);
@@ -72,11 +73,16 @@ function UpdateIncidentPage() {
   };
 
   const addSystemUser = () => {
-    setFormData({ ...formData, systemUsers: [...formData.systemUsers, { id: "" }] });
+    setFormData({
+      ...formData,
+      systemUsers: [...formData.systemUsers, { id: "" }],
+    });
   };
 
   const removeSystemUser = (index) => {
-    const updatedSystemUsers = formData.systemUsers.filter((_, i) => i !== index);
+    const updatedSystemUsers = formData.systemUsers.filter(
+      (_, i) => i !== index
+    );
     setFormData({ ...formData, systemUsers: updatedSystemUsers });
   };
 
@@ -106,7 +112,9 @@ function UpdateIncidentPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Caller Name */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Caller Name</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Caller Name
+            </label>
             <input
               type="text"
               name="callerName"
@@ -118,7 +126,9 @@ function UpdateIncidentPage() {
 
           {/* Call Time */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Call Time</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Call Time
+            </label>
             <input
               type="date"
               name="callTime"
@@ -130,7 +140,9 @@ function UpdateIncidentPage() {
 
           {/* Caller Contact Info */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Caller Contact Info</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Caller Contact Info
+            </label>
             <input
               type="text"
               name="callerContactInfo"
@@ -142,7 +154,9 @@ function UpdateIncidentPage() {
 
           {/* Incident Nature */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Incident Nature</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Incident Nature
+            </label>
             <input
               type="text"
               name="incidentNature"
@@ -154,7 +168,9 @@ function UpdateIncidentPage() {
 
           {/* Equipment or Persons Involved */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Equipment or Persons Involved</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Equipment or Persons Involved
+            </label>
             <input
               type="text"
               name="equipmentOrPersonsInvolved"
@@ -166,7 +182,9 @@ function UpdateIncidentPage() {
 
           {/* Location of Involved */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Location of Involved</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Location of Involved
+            </label>
             <input
               type="text"
               name="locationOfInvolved"
@@ -178,7 +196,9 @@ function UpdateIncidentPage() {
 
           {/* Incident Detection */}
           <div className="form-group">
-            <label className="block text-gray-700 font-medium mb-2">Incident Detection</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Incident Detection
+            </label>
             <input
               type="text"
               name="incidentDetection"
@@ -194,35 +214,40 @@ function UpdateIncidentPage() {
               System Users Involved:
             </label>
             <div className="space-y-4">
-              {formData.systemUsers.map((user, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <select
-                    value={user.id} // Use the id value
-                    onChange={(e) => handleSystemUsersChange(index, e)}
-                    className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <div className="flex flex-wrap gap-1">
+                {formData.systemUsers.map((user, index) => (
+                  <div
+                    key={index}
+                    className="w-1/4 flex items-center space-x-2 mb-4"
                   >
-                    <option value="">Select User</option>
-                    {usersList.map((usersListItem) => (
-                      <option key={usersListItem.id} value={usersListItem.id}>
-                        {usersListItem.name}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    onClick={() => removeSystemUser(index)}
-                    className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
+                    <select
+                      value={user.id}
+                      onChange={(e) => handleSystemUsersChange(index, e)}
+                      className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Select User</option>
+                      {usersList.map((usersListItem) => (
+                        <option key={usersListItem.id} value={usersListItem.id}>
+                          {usersListItem.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => removeSystemUser(index)}
+                      className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+                    >
+                      <PersonRemoveIcon />
+                    </button>
+                  </div>
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={addSystemUser}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
               >
-                Add User
+                <PersonAddIcon />
               </button>
             </div>
           </div>
