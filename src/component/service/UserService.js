@@ -43,7 +43,7 @@ class UserService{
 
     static async getYourProfile(token){
         try {
-            const response = await axios.get(`${UserService.BASE_URL}/admin/get-profile`,
+            const response = await axios.get(`${UserService.BASE_URL}/adminuser/get-profile`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -121,7 +121,7 @@ class UserService{
 
     static isUser(){
         const role = localStorage.getItem('role');
-        return role == 'USER'
+        return role == 'TEAM'
     }
 
     static adminOnly(){

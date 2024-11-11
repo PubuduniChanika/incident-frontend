@@ -6,6 +6,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false); // State to manage hamburger menu
   const isAuthenticated = UserService.isAuthenticated();
   const isAdmin = UserService.isAdmin();
+  const isUser = UserService.isUser();
 
   const handleLogout = () => {
     const confirmDelete = window.confirm(
@@ -78,6 +79,24 @@ function Navbar() {
                   User Management
                 </Link>
               </li>
+              <li>
+                <Link to="/profile" className="text-white hover:text-gray-400">
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="text-white hover:text-red-400 focus:outline-none"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+          {isUser && (
+            <>
+              
               <li>
                 <Link to="/profile" className="text-white hover:text-gray-400">
                   Profile

@@ -25,7 +25,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/public/add-incident" element={<IncidentPage />} />
-            <Route path="/admin/get-incidents" element={<ViewIncidentsPage />} />
+            
             
 
             {/* Check if user is authenticated and admin before rendering admin-only routes */}
@@ -35,6 +35,8 @@ function App() {
                 <Route path="/admin/user-management" element={<UserManagementPage />} />
                 <Route path="/update-user/:userId" element={<UpdateUser />} />
                 <Route path="/update-incident/:incidentId" element={<UpdateIncidentPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/admin/get-incidents" element={<ViewIncidentsPage />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/login" />} />
