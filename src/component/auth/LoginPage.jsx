@@ -15,7 +15,8 @@ function LoginPage() {
       if (userData.token) {
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
-        navigate("/admin/get-incidents");
+        {localStorage.getItem("role")=="ISO"?navigate("/admin/get-incidents"):navigate("/user/my-incidents")}
+
         window.location.reload();
       } else {
         setError(userData.message);

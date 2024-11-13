@@ -106,7 +106,7 @@ class UserService{
         // localStorage.removeItem('userId');
         // localStorage.removeItem('username');
         localStorage.removeItem('role');
-        window.location.href = '/';
+        window.location.href = '/login';
     }
     
     static isAuthenticated(){
