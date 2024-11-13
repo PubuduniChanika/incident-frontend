@@ -18,7 +18,7 @@ function ViewUserIncidentsPage() {
                 const token = localStorage.getItem('token');
                 const response = await IncidentService.getUserIncidents(token, page, size, searchTerm); // Pass search term
                 
-                setIncidents(response.content);
+                setIncidents(response.content||[]);
                 setTotalPages(response.totalPages);
             } catch (err) {
                 setError('Failed to fetch incidents');

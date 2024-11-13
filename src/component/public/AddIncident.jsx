@@ -44,7 +44,7 @@ function AddIncidentPage() {
       });
 
       alert("Incident reported successfully");
-      navigate("/admin/user-management");
+      
     } catch (error) {
       console.error("Error adding incident:", error);
       alert("An error occurred while reporting the incident");
