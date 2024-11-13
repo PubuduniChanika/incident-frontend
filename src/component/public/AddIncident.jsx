@@ -64,7 +64,7 @@ function AddIncidentPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Name of the caller:
+            Caller Name
             </label>
             <input
               type="text"
@@ -77,7 +77,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Time of the call:
+              Date of the call
             </label>
             <input
               type="date"
@@ -90,7 +90,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Contact information of the caller:
+              Contact information of the caller
             </label>
             <input
               type="text"
@@ -103,7 +103,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              The nature of the incident:
+            Incident Nature
             </label>
             <input
               type="text"
@@ -116,7 +116,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              What equipment or person(s) were involved:
+            Equipment or Persons Involved
             </label>
             <input
               type="text"
@@ -129,7 +129,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Location of the equipment or person(s) involved:
+            Location of Involved
             </label>
             <input
               type="text"
@@ -142,7 +142,7 @@ function AddIncidentPage() {
           </div>
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              How the incident was detected:
+              How the incident was detected
             </label>
             <input
               type="text"

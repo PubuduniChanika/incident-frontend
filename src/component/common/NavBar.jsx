@@ -79,38 +79,38 @@ function Navbar() {
                   User Management
                 </Link>
               </li>
-              <li>
-                <Link to="/profile" className="text-white hover:text-gray-400">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="text-white hover:text-red-400 focus:outline-none"
-                >
-                  Logout
-                </button>
-              </li>
+              
+              
             </>
           )}
           {isUser && (
             <>
               
+              
               <li>
-                <Link to="/profile" className="text-white hover:text-gray-400">
-                  Profile
+                <Link to="/user/my-incidents" className="text-white hover:text-gray-400">
+                  Incidents
                 </Link>
               </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="text-white hover:text-red-400 focus:outline-none"
-                >
-                  Logout
-                </button>
-              </li>
+              
             </>
+          )}
+          {isAuthenticated && (
+            <>
+            <li>
+            <Link to="/profile" className="text-white hover:text-gray-400">
+              Profile
+            </Link>
+          </li>
+          <li>
+          <button
+            onClick={handleLogout}
+            className="text-white hover:text-red-400 focus:outline-none"
+          >
+            Logout
+          </button>
+        </li>
+        </>
           )}
         </ul>
       </div>

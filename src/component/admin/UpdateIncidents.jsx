@@ -127,7 +127,7 @@ function UpdateIncidentPage() {
           {/* Call Time */}
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Call Time
+            Date of the call
             </label>
             <input
               type="date"
@@ -141,7 +141,7 @@ function UpdateIncidentPage() {
           {/* Caller Contact Info */}
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Caller Contact Info
+            Contact information of the caller
             </label>
             <input
               type="text"
@@ -197,7 +197,7 @@ function UpdateIncidentPage() {
           {/* Incident Detection */}
           <div className="form-group">
             <label className="block text-gray-700 font-medium mb-2">
-              Incident Detection
+            How the incident was detected
             </label>
             <input
               type="text"
