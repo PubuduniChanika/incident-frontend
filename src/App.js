@@ -7,6 +7,7 @@ import RegistrationPage from "./component/auth/RegistrationForm";
 import IncidentPage from "./component/public/AddIncident";
 import ProfilePage from "./component/userspage/ProfilePage";
 import ViewIncidentsPage from "./component/admin/ViewIncidents";
+import ViewUserIncidentsPage from "./component/user/ViewUserIncidents";
 import UserService from './component/service/UserService';
 import UserManagementPage from "./component/userspage/UserManagement";
 import UpdateIncidentPage from "./component/admin/UpdateIncidents"
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/public/add-incident" element={<IncidentPage />} />
+            <Route path="/user/my-incidents" element={<ViewUserIncidentsPage />} />
             
             
 

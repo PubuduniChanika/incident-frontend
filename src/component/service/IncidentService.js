@@ -36,6 +36,28 @@ class IncidentService {
             throw new Error("Failed to load incidents. Please try again.");
         }
     }
+
+    async getUserIncidents(token, page = 0, size = 10, searchTerm = '') {
+        if (!token) {
+            throw new Error("Token is required to fetch incidents.");
+        }
+        try {
+            const response = await axios.get(`${IncidentService.BASE_URL}/user/my-incidents`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    page: page,
+                    size: size,
+                    searchTerm: searchTerm  // Include the search term here
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching incidents:", error.response ? error.response.data : error.message);
+            throw new Error("Failed to load incidents. Please try again.");
+        }
+    }
     
     
 
