@@ -77,16 +77,25 @@ function UpdateUser() {
               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="flex flex-col">
-            <label className="mb-1 text-gray-600">Role:</label>
-            <input
-              type="text"
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Role:
+            </label>
+            <select
               name="role"
               value={userData.role}
               onChange={handleInputChange}
-              className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+            >
+              <option value="" disabled>
+                Select role
+              </option>
+              <option value="ISO">ISO</option>
+              <option value="TEAM">TEAM</option>
+            </select>
           </div>
+          
           <div className="flex flex-col">
             <label className="mb-1 text-gray-600">Designation:</label>
             <input
